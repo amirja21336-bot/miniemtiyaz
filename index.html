@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>راهنمای بات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#01040d;
+  --bg-mid:#04101f;
+  --bg-soft:#081c33;
+  --cyan:#00e5ff;
+  --cyan-soft:#5ff0ff;
+  --purple:#a06bff;
+  --purple-soft:#c9a8ff;
+  --green:#00ffa3;
+  --pink:#ff3d8b;
+  --gold:#ffd166;
+  --text:#eaf6ff;
+  --text-soft:#a8c4dd;
+  --text-dim:#6b8ba8;
+  --line:rgba(120,200,255,0.12);
+  --line-strong:rgba(120,200,255,0.25);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+html,body{height:100%}
+
+body{
+  font-family:'Vazirmatn',Tahoma,sans-serif;
+  font-weight:400;
+  background:#01040d;
+  color:var(--text);
+  min-height:100vh;
+  padding:18px 16px 40px;
+  overflow-x:hidden;
+  position:relative;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+#cosmos{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+#cosmos canvas{
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+#cosmos::before{
+  content:'';
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(ellipse 50% 40% at 20% 15%, rgba(0,229,255,0.10), transparent 65%),
+    radial-gradient(ellipse 45% 40% at 80% 20%, rgba(160,107,255,0.12), transparent 65%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0,255,163,0.06), transparent 65%),
+    radial-gradient(ellipse 40% 30% at 90% 80%, rgba(255,61,139,0.06), transparent 65%);
+  filter:blur(30px);
+  animation:nebula 30s ease-in-out infinite alternate;
+}
+
+@keyframes nebula{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(-3%,2%) scale(1.08)}
+}
+
+.container{
+  max-width:540px;
+  margin:0 auto;
+  position:relative;
+  z-index:2;
+}
+
+/* ==================== HERO ==================== */
+.hero{
+  text-align:center;
+  padding:12px 8px 26px;
+  margin-bottom:6px;
+  position:relative;
+}
+
+.hero-emblem{
+  width:88px;
+  height:88px;
+  margin:0 auto 18px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-emblem::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:26px;
+  background:linear-gradient(135deg,#00e5ff 0%,#a06bff 50%,#ff3d8b 100%);
+  opacity:0.9;
+  filter:blur(0.5px);
+  box-shadow:
+    0 0 30px rgba(0,229,255,0.5),
+    0 0 60px rgba(160,107,255,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.hero-emblem::after{
+  content:'';
+  position:absolute;
+  inset:-14px;
+  border-radius:34px;
+  background:linear-gradient(135deg,#00e5ff,#a06bff);
+  opacity:0.25;
+  filter:blur(24px);
+  z-index:-1;
+  animation:pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow{
+  0%,100%{opacity:0.2;transform:scale(1)}
+  50%{opacity:0.4;transform:scale(1.05)}
+}
+
+.hero-emblem span{
+  position:relative;
+  font-size:42px;
+  z-index:1;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.hero-title{
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-0.4px;
+  background:linear-gradient(135deg,#ffffff 0%,#a8e6ff 50%,#c9a8ff 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
+  margin-bottom:8px;
+  filter:drop-shadow(0 0 20px rgba(0,229,255,0.35));
+}
+
+.hero-sub{
+  font-size:13px;
+  color:var(--text-soft);
+  font-weight:400;
+  letter-spacing:0.3px;
+}
+
+/* ==================== CATEGORIES ==================== */
+.categories{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:22px;
+  padding:6px;
+  background:rgba(6,20,38,0.4);
+  border:1px solid var(--line);
+  border-radius:22px;
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.cat-card{
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:16px;
+  padding:14px 6px 12px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  position:relative;
+  overflow:hidden;
+}
+
+.cat-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(0,229,255,0.12),rgba(160,107,255,0.08));
+  opacity:0;
+  transition:opacity 0.3s;
+}
+
+.cat-card:hover::before{opacity:0.5}
+
+.cat-card.active{
+  background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(160,107,255,0.12));
+  border-color:rgba(0,229,255,0.4);
+  box-shadow:
+    0 0 20px rgba(0,229,255,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.cat-card.active::before{opacity:1}
+
+.cat-icon{
+  font-size:24px;
+  margin-bottom:6px;
+  filter:drop-shadow(0 0 8px rgba(0,229,255,0.4));
+  transition:transform 0.3s;
+  position:relative;
+  z-index:1;
+}
+
+.cat-card.active .cat-icon{
+  transform:scale(1.1);
+  filter:drop-shadow(0 0 12px rgba(0,229,255,0.7));
+}
+
+.cat-name{
+  font-size:11.5px;
+  font-weight:600;
+  color:var(--text-soft);
+  position:relative;
+  z-index:1;
+  transition:color 0.3s;
+}
+
+.cat-card.active .cat-name{
+  color:#fff;
+  text-shadow:0 0 10px rgba(0,229,255,0.5);
+}
+
+/* ==================== SECTIONS ==================== */
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+  animation:sectionIn 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes sectionIn{
+  from{opacity:0;transform:translateY(16px) scale(0.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* ==================== BLOCKS ==================== */
+.block{
+  position:relative;
+  background:rgba(6,20,38,0.5);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:20px 18px 14px;
+  margin-bottom:14px;
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  overflow:hidden;
+}
+
+.block::before{
+  content:'';
+  position:absolute;
+  top:0;
+  right:20px;
+  left:20px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,0.5),transparent);
+}
+
+.block::after{
+  content:'';
+  position:absolute;
+  top:-1px;
+  right:30%;
+  width:40%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(160,107,255,0.8),transparent);
+  filter:blur(1px);
+}
+
+.block-title{
+  font-size:16px;
+  font-weight:700;
+  color:#fff;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  letter-spacing:-0.2px;
+}
+
+.block-title .dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:
+    0 0 10px var(--cyan),
+    0 0 20px rgba(0,229,255,0.5);
+  flex-shrink:0;
+  animation:dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.3);opacity:0.7}
+}
+
+/* ==================== COMMANDS ==================== */
+.cmd{
+  padding:11px 12px;
+  border-radius:14px;
+  margin-bottom:6px;
+  transition:all 0.25s;
+  position:relative;
+  border:1px solid transparent;
+}
+
+.cmd:hover{
+  background:rgba(0,229,255,0.05);
+  border-color:rgba(0,229,255,0.15);
+}
+
+.cmd-line{
+  position:relative;
+  padding-right:18px;
+}
+
+.cmd-line::before{
+  content:'';
+  position:absolute;
+  right:0;
+  top:11px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  box-shadow:0 0 10px rgba(0,229,255,0.6);
+  flex-shrink:0;
+}
+
+.cmd-text{
+  font-size:13.5px;
+  line-height:2;
+  color:var(--text);
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.cmd-text code{
+  display:inline-block;
+  background:linear-gradient(135deg,rgba(0,229,255,0.12),rgba(160,107,255,0.08));
+  border:1px solid rgba(0,229,255,0.3);
+  color:#7df0ff;
+  padding:3px 10px;
+  border-radius:8px;
+  font-family:'Vazirmatn',monospace;
+  font-size:12.5px;
+  font-weight:600;
+  text-shadow:0 0 10px rgba(0,229,255,0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 0 12px rgba(0,229,255,0.15);
+  transition:all 0.25s;
+}
+
+.cmd-text code:hover{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    0 0 20px rgba(0,229,255,0.4);
+}
+
+.cmd-desc{
+  font-size:12px;
+  color:var(--text-dim);
+  margin-top:4px;
+  line-height:1.85;
+  font-weight:400;
+}
+
+/* ==================== BADGES ==================== */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  font-size:10.5px;
+  padding:3px 9px;
+  border-radius:7px;
+  font-weight:600;
+  line-height:1.5;
+  letter-spacing:0.2px;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.badge-cyan{
+  background:rgba(0,229,255,0.1);
+  color:#7df0ff;
+  border:1px solid rgba(0,229,255,0.35);
+  box-shadow:0 0 10px rgba(0,229,255,0.15);
+}
+
+.badge-green{
+  background:rgba(0,255,163,0.1);
+  color:#5effc1;
+  border:1px solid rgba(0,255,163,0.35);
+  box-shadow:0 0 10px rgba(0,255,163,0.15);
+}
+
+.badge-gold{
+  background:rgba(255,209,102,0.1);
+  color:#ffd97a;
+  border:1px solid rgba(255,209,102,0.35);
+  box-shadow:0 0 10px rgba(255,209,102,0.15);
+}
+
+.badge-pink{
+  background:rgba(255,61,139,0.1);
+  color:#ff74ab;
+  border:1px solid rgba(255,61,139,0.35);
+  box-shadow:0 0 10px rgba(255,61,139,0.15);
+}
+
+.badge-purple{
+  background:rgba(160,107,255,0.1);
+  color:#c9a8ff;
+  border:1px solid rgba(160,107,255,0.35);
+  box-shadow:0 0 10px rgba(160,107,255,0.15);
+}
+
+/* ==================== FOOTER ==================== */
+.footer{
+  text-align:center;
+  padding:30px 12px 10px;
+  margin-top:20px;
+}
+
+.footer-line{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,0.3),rgba(160,107,255,0.3),transparent);
+  margin-bottom:20px;
+}
+
+.footer-text{
+  font-size:12.5px;
+  color:var(--text-soft);
+  font-weight:400;
+  margin-bottom:14px;
+}
+
+.admin-hint{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:10px 20px;
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(160,107,255,0.12),rgba(0,229,255,0.08));
+  border:1px solid rgba(160,107,255,0.35);
+  font-size:12.5px;
+  font-weight:600;
+  color:#c9a8ff;
+  text-shadow:0 0 12px rgba(160,107,255,0.5);
+  box-shadow:
+    0 0 20px rgba(160,107,255,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  transition:all 0.3s;
+}
+
+.admin-hint:hover{
+  box-shadow:
+    0 0 30px rgba(160,107,255,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width:400px){
+  body{padding:14px 12px 30px}
+  .hero-emblem{width:78px;height:78px}
+  .hero-emblem span{font-size:36px}
+  .hero-title{font-size:22px}
+  .cat-icon{font-size:20px}
+  .cat-name{font-size:10.5px}
+  .cmd-text{font-size:12.5px}
+  .cmd-text code{font-size:11.5px;padding:2px 8px}
+  .cmd-desc{font-size:11px}
+  .block{padding:16px 14px 12px}
+}
+</style>
+</head>
+<body>
+
+<div id="cosmos"><canvas id="cosmos-canvas"></canvas></div>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-emblem"><span>📖</span></div>
+    <div class="hero-title">راهنمای کامل بات</div>
+    <div class="hero-sub">همه دستورات در یک نگاه</div>
+  </div>
+
+  <div class="categories">
+    <div class="cat-card active" data-cat="main">
+      <div class="cat-icon">💰</div>
+      <div class="cat-name">اقتصاد</div>
+    </div>
+    <div class="cat-card" data-cat="assets">
+      <div class="cat-icon">💎</div>
+      <div class="cat-name">دارایی‌ها</div>
+    </div>
+    <div class="cat-card" data-cat="bank">
+      <div class="cat-icon">🏦</div>
+      <div class="cat-name">بانک</div>
+    </div>
+    <div class="cat-card" data-cat="fun">
+      <div class="cat-icon">🎮</div>
+      <div class="cat-name">سرگرمی</div>
+    </div>
+    <div class="cat-card" data-cat="stats">
+      <div class="cat-icon">📊</div>
+      <div class="cat-name">آمار</div>
+    </div>
+    <div class="cat-card" data-cat="admin">
+      <div class="cat-icon">🛡️</div>
+      <div class="cat-name">ادمین</div>
+    </div>
+  </div>
+
+  <!-- اقتصاد -->
+  <div class="section active" id="sec-main">
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>جق</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>جق</code></div>
+          <div class="cmd-desc">هر ۵ دقیقه یکبار — +۲۰ جق و ۱۰ XP</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>انتقال جق {تعداد}</code><span class="badge badge-cyan">ریپلای</span></div>
+          <div class="cmd-desc">انتقال جق به کاربر دیگر</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>شغل</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>شغل</code></div>
+          <div class="cmd-desc">مشاهده لیست شغل‌ها</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>استخدام {نام}</code></div>
+          <div class="cmd-desc">استخدام در شغل مورد نظر</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>حقوق</code></div>
+          <div class="cmd-desc">دریافت درآمد شغل</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>استعفا</code></div>
+          <div class="cmd-desc">ترک شغل فعلی</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>جایزه و ماموریت</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>جایزه</code><span class="badge badge-green">روزانه</span></div>
+          <div class="cmd-desc">استریک ۷ روز به بالا = ۱ الماس</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>گردونه</code><span class="badge badge-gold">هر ۶ ساعت</span></div>
+          <div class="cmd-desc">شانس دریافت الماس</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>ماموریت</code></div>
+          <div class="cmd-desc">مشاهده ماموریت‌های روزانه</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- دارایی‌ها -->
+  <div class="section" id="sec-assets">
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>الماس</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>الماس</code></div>
+          <div class="cmd-desc">نمایش تعداد الماس‌های شما</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>فروشگاه الماس</code></div>
+          <div class="cmd-desc">خرید آیتم با الماس</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید الماس {نام}</code></div>
+          <div class="cmd-desc">خرید آیتم از فروشگاه الماس</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید {تعداد} الماس</code></div>
+          <div class="cmd-desc">خرید الماس با جق</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>فروش {تعداد} الماس</code></div>
+          <div class="cmd-desc">فروش الماس به بات</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>تاریخچه الماس</code></div>
+          <div class="cmd-desc">تاریخچه معاملات الماس</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>قیمت الماس</code></div>
+          <div class="cmd-desc">قیمت خرید و فروش الماس</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>معدن</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>ساخت معدن جق {تعداد}</code></div>
+          <div class="cmd-desc">هر معدن ۱۵۰ جق — سود: ۵۰ جق/ساعت</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>ارتقاء معدن</code></div>
+          <div class="cmd-desc">هزینه: ۵۰۰ × سطح</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>کارخانه</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید کارخانه</code></div>
+          <div class="cmd-desc">هزینه: ۵۰,۰۰۰ جق</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>ارتقاء کارخانه</code></div>
+          <div class="cmd-desc">تا ۲ بار قابل ارتقاست</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>بازار کالا</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>بازار</code></div>
+          <div class="cmd-desc">مشاهده کالاهای بازار</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید {نام}</code></div>
+          <div class="cmd-desc">خرید کالا از بازار</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>انبار</code></div>
+          <div class="cmd-desc">مشاهده انبار + سود و ضرر</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>فروش {نام}</code></div>
+          <div class="cmd-desc">فروش کالا به بازار</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>ارزش</code></div>
+          <div class="cmd-desc">ارزش کل انبار</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>تاریخچه معاملات</code></div>
+          <div class="cmd-desc">تاریخچه خرید و فروش‌ها</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>فروشگاه</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید xp_boost</code></div>
+          <div class="cmd-desc">افزایش XP</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید cooldown_reset</code></div>
+          <div class="cmd-desc">ریست کول‌داون</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید casino_boost</code></div>
+          <div class="cmd-desc">بونوس کازینو</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید shield</code></div>
+          <div class="cmd-desc">سپر محافظت</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- بانک -->
+  <div class="section" id="sec-bank">
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>وام</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>وام {مبلغ}</code></div>
+          <div class="cmd-desc">بین ۱۰۰ تا ۵۰,۰۰۰ جق</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>وامم</code></div>
+          <div class="cmd-desc">اطلاعات وام فعلی</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>بانک</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>دریافت کارت</code><span class="badge badge-gold">۵,۰۰۰ جق</span></div>
+          <div class="cmd-desc">صدور کارت بانکی</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>تغییر کارت</code><span class="badge badge-gold">۲,۵۰۰ جق</span></div>
+          <div class="cmd-desc">تغییر شماره کارت</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>بانک</code></div>
+          <div class="cmd-desc">اطلاعات حساب بانکی</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>واریز بانک {مبلغ}</code></div>
+          <div class="cmd-desc">واریز جق به بانک</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>برداشت بانک {مبلغ}</code></div>
+          <div class="cmd-desc">برداشت جق از بانک</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>انتقال بانکی {کارت} {مبلغ}</code></div>
+          <div class="cmd-desc">انتقال به کارت دیگر</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>تاریخچه بانکی</code></div>
+          <div class="cmd-desc">تاریخچه تراکنش‌ها</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><span class="badge badge-green">خودکار</span> سود شبانه ۱۰٪</div>
+          <div class="cmd-desc">هر شب به موجودی بانک اضافه می‌شود</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- سرگرمی -->
+  <div class="section" id="sec-fun">
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>دزدی</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>دزدی</code><span class="badge badge-cyan">ریپلای</span></div>
+          <div class="cmd-desc">شانس: ۲۰٪ + ۵٪ هر لول — حداکثر ۴۰٪ | حداقل ۵٪</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><span class="badge badge-pink">شکست</span> ۱۰ دقیقه زندان</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>دزدیم</code></div>
+          <div class="cmd-desc">آمار دزدی‌های شما</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>دوئل</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>دوئل {مبلغ}</code></div>
+          <div class="cmd-desc">۵۰٪ شانس برد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>کازینو</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>شرط {مبلغ}</code></div>
+          <div class="cmd-desc">شانس دریافت الماس</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>لاتاری</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>لاتاری</code></div>
+          <div class="cmd-desc">اطلاعات لاتاری</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>خرید بلیط {تعداد}</code><span class="badge badge-gold">۱۰۰ جق هر بلیط</span></div>
+          <div class="cmd-desc">خرید بلیط لاتاری</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><span class="badge badge-purple">جایزه</span> ۱۰ الماس + جایزه نقدی</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- آمار -->
+  <div class="section" id="sec-stats">
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>آمار و سود</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>سودم</code></div>
+          <div class="cmd-desc">زمان تا دریافت سود بعدی</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>جقام</code></div>
+          <div class="cmd-desc">آمار کامل شما</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>جقاش</code><span class="badge badge-cyan">ریپلای</span></div>
+          <div class="cmd-desc">آمار کاربر دیگر</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>آمار جق</code></div>
+          <div class="cmd-desc">رتبه‌بندی کاربران</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>دستاوردهام</code></div>
+          <div class="cmd-desc">دستاوردهای کسب‌شده</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ادمین -->
+  <div class="section" id="sec-admin">
+    <div class="block">
+      <div class="block-title"><span class="dot"></span>دستورات ادمین</div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><code>راهنما ادمین</code></div>
+          <div class="cmd-desc">مشاهده راهنمای کامل ادمین</div>
+        </div>
+      </div>
+      <div class="cmd">
+        <div class="cmd-line">
+          <div class="cmd-text"><span class="badge badge-purple">شامل</span> مسدودیت، زندان، جق، معدن، کارخانه، XP، شغل، وام، بانک، لاتاری</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-line"></div>
+    <div class="footer-text">📖 راهنمای بات — همه دستورات در یک نگاه</div>
+    <div class="admin-hint">🛡️ ادمین: راهنما ادمین</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('cosmos-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [], meteors = [];
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const STAR_DENSITY = 0.00022;
+  const METEOR_MIN = 3500;
+  const METEOR_MAX = 8000;
+  let lastMeteor = 0;
+  let nextMeteor = 4000;
+
+  const STAR_HUES = [
+    [220, 240, 255],
+    [140, 230, 255],
+    [200, 180, 255],
+    [180, 255, 230],
+    [255, 230, 200]
+  ];
+
+  function resize(){
+    W = canvas.width = window.innerWidth * dpr;
+    H = canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    buildStars();
+  }
+
+  function buildStars(){
+    const count = Math.floor(window.innerWidth * window.innerHeight * STAR_DENSITY);
+    stars = [];
+    for(let i = 0; i < count; i++){
+      const hue = STAR_HUES[Math.floor(Math.random() * STAR_HUES.length)];
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: (Math.random() * 1.3 + 0.25) * dpr,
+        baseAlpha: Math.random() * 0.6 + 0.15,
+        twinkleSpeed: Math.random() * 0.015 + 0.003,
+        phase: Math.random() * Math.PI * 2,
+        r_h: hue[0],
+        g_h: hue[1],
+        b_h: hue[2],
+        drift: (Math.random() - 0.5) * 0.08 * dpr
+      });
+    }
+  }
+
+  function spawnMeteor(){
+    const fromLeft = Math.random() < 0.5;
+    const angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.5;
+    const speed = (Math.random() * 4 + 6) * dpr;
+    const hue = Math.random() < 0.4
+      ? [0, 229, 255]
+      : Math.random() < 0.7
+        ? [160, 107, 255]
+        : [255, 255, 255];
+    meteors.push({
+      x: fromLeft ? -100 * dpr : W + 100 * dpr,
+      y: Math.random() * H * 0.4,
+      vx: (fromLeft ? 1 : -1) * Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      length: (Math.random() * 180 + 140) * dpr,
+      life: 1,
+      hue: hue,
+      width: (Math.random() * 1.2 + 0.8) * dpr
+    });
+  }
+
+  let time = 0;
+  function draw(){
+    time++;
+    ctx.clearRect(0, 0, W, H);
+
+    for(const s of stars){
+      s.x += s.drift * 0.1;
+      s.y += s.drift * 0.05;
+      if(s.x < -10) s.x = W + 10;
+      if(s.x > W + 10) s.x = -10;
+      if(s.y < -10) s.y = H + 10;
+      if(s.y > H + 10) s.y = -10;
+
+      const twinkle = Math.sin(time * s.twinkleSpeed + s.phase) * 0.45 + 0.55;
+      const alpha = s.baseAlpha * twinkle;
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${s.r_h},${s.g_h},${s.b_h},${alpha})`;
+      ctx.fill();
+
+      if(s.r > 1.1 * dpr){
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${s.r_h},${s.g_h},${s.b_h},${alpha * 0.12})`;
+        ctx.fill();
+      }
+    }
+
+    const now = performance.now();
+    if(now - lastMeteor > nextMeteor){
+      spawnMeteor();
+      lastMeteor = now;
+      nextMeteor = METEOR_MIN + Math.random() * (METEOR_MAX - METEOR_MIN);
+    }
+
+    for(let i = meteors.length - 1; i >= 0; i--){
+      const m = meteors[i];
+      m.x += m.vx;
+      m.y += m.vy;
+      m.life -= 0.006;
+
+      if(m.life <= 0 || m.x < -300 * dpr || m.x > W + 300 * dpr || m.y > H + 300 * dpr){
+        meteors.splice(i, 1);
+        continue;
+      }
+
+      const speed = Math.hypot(m.vx, m.vy);
+      const tailX = m.x - (m.vx / speed) * m.length;
+      const tailY = m.y - (m.vy / speed) * m.length;
+
+      const grad = ctx.createLinearGradient(m.x, m.y, tailX, tailY);
+      grad.addColorStop(0, `rgba(${m.hue[0]},${m.hue[1]},${m.hue[2]},${m.life})`);
+      grad.addColorStop(0.35, `rgba(${m.hue[0]},${m.hue[1]},${m.hue[2]},${m.life * 0.45})`);
+      grad.addColorStop(1, `rgba(${m.hue[0]},${m.hue[1]},${m.hue[2]},0)`);
+
+      ctx.beginPath();
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = m.width;
+      ctx.lineCap = 'round';
+      ctx.moveTo(m.x, m.y);
+      ctx.lineTo(tailX, tailY);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, m.width * 2, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${m.hue[0]},${m.hue[1]},${m.hue[2]},${m.life})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, m.width * 6, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${m.hue[0]},${m.hue[1]},${m.hue[2]},${m.life * 0.15})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+
+  document.querySelectorAll('.cat-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const cat = card.dataset.cat;
+      document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      card.classList.add('active');
+      const sec = document.getElementById('sec-' + cat);
+      if(sec) sec.classList.add('active');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
